@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  wordpress:
+    image: wordpress:latest
+    ports:
+      - "8080:80"
+    env_file: .env
+    depends_on:
+      - mysql
+    networks:
+      - lab6
+
+  mysql:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: root123456
+      MYSQL_DATABASE: demo_db
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: demo123456
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "3306:3306"  
+    networks:
+      - lab6
+
+networks:
+  lab6:
+    driver: bridge
+
+volumes:
+  db_data:
