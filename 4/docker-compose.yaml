@@ -1,0 +1,28 @@
+version: "3"
+#Network
+networks:
+  my-network:
+    driver: bridge
+#Volumes
+
+#services
+services:
+  #container PHP
+  my-nginx:
+    container_name: nginxnewww
+    build: 
+      dockerfile: dockerfile
+    hostname: nginx
+    networks:
+      - my-network
+    ports:
+      - "80:80"
+  #container httpd
+  my-httpd:
+    container_name: httpd
+    image: httpd
+    hostname: httpd
+    networks:
+      - my-network
+    ports:
+      - "443:80"
